@@ -1,0 +1,654 @@
+/* green-white */
+
+body > div.section > div.slide-green-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-green-white {
+  color: rgb(54, 59, 91);
+}
+body > div.section > div.slide-green-white a {
+  color: rgba(42, 167, 124, .80);
+}
+body > div.section > div.slide-green-white a:visited {
+  color: rgba(42, 167, 124, .80);
+}
+body > div.section > div.slide-green-white a:hover {
+  color: rgb(42, 167, 124);
+}
+
+
+body > div.section > div.slide-green-white h1,
+body > div.section > div.slide-green-white h2,
+body > div.section > div.slide-green-white h2.special,
+body > div.section > div.slide-green-white h3,
+body > div.section > div.slide-green-white h4,
+body > div.section > div.slide-green-white h5,
+body > div.section > div.slide-green-white h6,
+body > div.section > div.slide-green-white strong,
+body > div.section > div.slide-green-white code.docutils.literal,
+body > div.section > div.slide-green-white.center-text > p ,
+body > div.section > div.slide-green-white.center-text > div.line-block {
+  color: rgb(42, 167, 124);
+}
+body > div.section > div.slide-green-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-green-white table.docutils th,
+body > div.section > div.slide-green-white table.docutils tr,
+body > div.section > div.slide-green-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* green */
+
+body > div.section > div.slide-green {
+  background-color: rgb(42, 167, 124);
+}
+body > div.section > div.slide-green {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-green a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-green a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-green a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-green h1,
+body > div.section > div.slide-green h2,
+body > div.section > div.slide-green h2.special,
+body > div.section > div.slide-green h3,
+body > div.section > div.slide-green h4,
+body > div.section > div.slide-green h5,
+body > div.section > div.slide-green h6,
+body > div.section > div.slide-green em,
+body > div.section > div.slide-green strong,
+body > div.section > div.slide-green.center-text > p ,
+body > div.section > div.slide-green.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-green code.docutils.literal {
+  color: rgb(42, 167, 124);
+}
+body > div.section > div.slide-green hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-green .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* black-white */
+
+body > div.section > div.slide-black-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-black-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-black-white a {
+  color: rgba(53, 60, 92, .80);
+}
+body > div.section > div.slide-black-white a:visited {
+  color: rgba(53, 60, 92, .80);
+}
+body > div.section > div.slide-black-white a:hover {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-black-white h1,
+body > div.section > div.slide-black-white h2,
+body > div.section > div.slide-black-white h2.special,
+body > div.section > div.slide-black-white h3,
+body > div.section > div.slide-black-white h4,
+body > div.section > div.slide-black-white h5,
+body > div.section > div.slide-black-white h6,
+body > div.section > div.slide-black-white strong,
+body > div.section > div.slide-black-white code.docutils.literal,
+body > div.section > div.slide-black-white.center-text > p ,
+body > div.section > div.slide-black-white.center-text > div.line-block {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-black-white hr.docutils {
+  background-color: rgb(53, 60, 92, .50);
+}
+body > div.section > div.slide-black-white table.docutils th,
+body > div.section > div.slide-black-white table.docutils tr,
+body > div.section > div.slide-black-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, .50);
+}
+
+
+/* black */
+
+body > div.section > div.slide-black {
+  background-color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-black {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-black a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-black a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-black a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-black h1,
+body > div.section > div.slide-black h2,
+body > div.section > div.slide-black h2.special,
+body > div.section > div.slide-black h3,
+body > div.section > div.slide-black h4,
+body > div.section > div.slide-black h5,
+body > div.section > div.slide-black h6,
+body > div.section > div.slide-black em,
+body > div.section > div.slide-black strong,
+body > div.section > div.slide-black.center-text > p,
+body > div.section > div.slide-black.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-black code.docutils.literal {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-black hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-black div.highlight {
+  border: 1px solid rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-black table.highlighttable div.highlight {
+  border: none;
+}
+body > div.section > div.slide-black table.highlighttable {
+  border: 1px solid rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-black table.highlighttable td.linenos {
+  border-right: 1px solid rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-black .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* purple-white */
+
+body > div.section > div.slide-purple-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-purple-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-purple-white a {
+  color: rgba(169, 77, 187, .80);
+}
+body > div.section > div.slide-purple-white a:visited {
+  color: rgba(169, 77, 187, .80);
+}
+body > div.section > div.slide-purple-white a:hover {
+  color: rgb(169, 77, 187);
+}
+body > div.section > div.slide-purple-white h1,
+body > div.section > div.slide-purple-white h2,
+body > div.section > div.slide-purple-white h2.special,
+body > div.section > div.slide-purple-white h3,
+body > div.section > div.slide-purple-white h4,
+body > div.section > div.slide-purple-white h5,
+body > div.section > div.slide-purple-white h6,
+body > div.section > div.slide-purple-white strong,
+/*
+body > div.section > div.slide-purple-white code.docutils.literal,
+*/
+body > div.section > div.slide-purple-white.center-text > p,
+body > div.section > div.slide-purple-white.center-text > div.line-block {
+  color: rgb(169, 77, 187);
+}
+body > div.section > div.slide-purple-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-purple-white table.docutils th,
+body > div.section > div.slide-purple-white table.docutils tr,
+body > div.section > div.slide-purple-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* purple */
+
+body > div.section > div.slide-purple {
+  background-color: rgb(169, 77, 187);
+}
+body > div.section > div.slide-purple {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-purple a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-purple a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-purple a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-purple h1,
+body > div.section > div.slide-purple h2,
+body > div.section > div.slide-purple h2.special,
+body > div.section > div.slide-purple h3,
+body > div.section > div.slide-purple h4,
+body > div.section > div.slide-purple h5,
+body > div.section > div.slide-purple h6,
+body > div.section > div.slide-purple em,
+body > div.section > div.slide-purple strong,
+body > div.section > div.slide-purple.center-text > p,
+body > div.section > div.slide-purple.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+/*
+body > div.section > div.slide-purple code.docutils.literal {
+  color: rgb(169, 77, 187);
+}
+*/
+body > div.section > div.slide-purple hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-purple .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* blue-white */
+
+body > div.section > div.slide-blue-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-blue-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-blue-white a {
+  color: rgba(20, 149, 240, .80);
+}
+body > div.section > div.slide-blue-white a:visited {
+  color: rgba(20, 149, 240, .80);
+}
+body > div.section > div.slide-blue-white a:hover {
+  color: rgb(20, 149, 240);
+}
+body > div.section > div.slide-blue-white h1,
+body > div.section > div.slide-blue-white h2,
+body > div.section > div.slide-blue-white h2.special,
+body > div.section > div.slide-blue-white h3,
+body > div.section > div.slide-blue-white h4,
+body > div.section > div.slide-blue-white h5,
+body > div.section > div.slide-blue-white h6,
+body > div.section > div.slide-blue-white strong,
+/*
+body > div.section > div.slide-blue-white code.docutils.literal,
+*/
+body > div.section > div.slide-blue-white.center-text > p,
+body > div.section > div.slide-blue-white.center-text > div.line-block {
+  color: rgb(20, 149, 240);
+}
+body > div.section > div.slide-blue-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-blue-white table.docutils th,
+body > div.section > div.slide-blue-white table.docutils tr,
+body > div.section > div.slide-blue-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* blue */
+
+body > div.section > div.slide-blue {
+  background-color: rgb(20, 149, 240);
+}
+body > div.section > div.slide-blue {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-blue a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-blue a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-blue a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-blue h1,
+body > div.section > div.slide-blue h2,
+body > div.section > div.slide-blue h2.special,
+body > div.section > div.slide-blue h3,
+body > div.section > div.slide-blue h4,
+body > div.section > div.slide-blue h5,
+body > div.section > div.slide-blue h6,
+body > div.section > div.slide-blue em,
+body > div.section > div.slide-blue strong {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-blue code.docutils.literal,
+body > div.section > div.slide-bluc.center-text > p,
+body > div.section > div.slide-bluc.center-text > div.line-block {
+  color: rgb(20, 149, 240);
+}
+body > div.section > div.slide-blue hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-blue .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* cyan-white */
+
+body > div.section > div.slide-cyan-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-cyan-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-cyan-white a {
+  color: rgba(21, 174, 201, .80);
+}
+body > div.section > div.slide-cyan-white a:visited {
+  color: rgba(21, 174, 201, .80);
+}
+body > div.section > div.slide-cyan-white a:hover {
+  color: rgb(21, 174, 201);
+}
+body > div.section > div.slide-cyan-white h1,
+body > div.section > div.slide-cyan-white h2,
+body > div.section > div.slide-cyan-white h2.special,
+body > div.section > div.slide-cyan-white h3,
+body > div.section > div.slide-cyan-white h4,
+body > div.section > div.slide-cyan-white h5,
+body > div.section > div.slide-cyan-white h6,
+body > div.section > div.slide-cyan-white strong,
+body > div.section > div.slide-cyan-white code.docutils.literal,
+body > div.section > div.slide-cyan-white.center-text > p,
+body > div.section > div.slide-cyan-white.center-text > div.line-block {
+  color: rgb(21, 174, 201);
+}
+body > div.section > div.slide-cyan-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-cyan-white table.docutils th,
+body > div.section > div.slide-cyan-white table.docutils tr,
+body > div.section > div.slide-cyan-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* cyan */
+
+body > div.section > div.slide-cyan {
+  background-color: rgb(21, 174, 201);
+}
+body > div.section > div.slide-cyan {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-cyan a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-cyan a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-cyan a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-cyan h1,
+body > div.section > div.slide-cyan h2,
+body > div.section > div.slide-cyan h2.special,
+body > div.section > div.slide-cyan h3,
+body > div.section > div.slide-cyan h4,
+body > div.section > div.slide-cyan h5,
+body > div.section > div.slide-cyan h6,
+body > div.section > div.slide-cyan em,
+body > div.section > div.slide-cyan strong,
+body > div.section > div.slide-cyan.center-text > p,
+body > div.section > div.slide-cyan.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-cyan code.docutils.literal {
+  color: rgb(21, 174, 201);
+}
+body > div.section > div.slide-cyan hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-cyan .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* yellow-white */
+
+body > div.section > div.slide-yellow-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-yellow-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-yellow-white a {
+  color: rgba(253, 124, 7, .80);
+}
+body > div.section > div.slide-yellow-white a:visited {
+  color: rgba(253, 124, 7, .80);
+}
+body > div.section > div.slide-yellow-white a:hover {
+  color: rgb(253, 124, 7);
+}
+body > div.section > div.slide-yellow-white h1,
+body > div.section > div.slide-yellow-white h2,
+body > div.section > div.slide-yellow-white h2.special,
+body > div.section > div.slide-yellow-white h3,
+body > div.section > div.slide-yellow-white h4,
+body > div.section > div.slide-yellow-white h5,
+body > div.section > div.slide-yellow-white h6,
+body > div.section > div.slide-yellow-white strong,
+body > div.section > div.slide-yellow-white code.docutils.literal,
+body > div.section > div.slide-yellow-white.center-text > p,
+body > div.section > div.slide-yellow-white.center-text > div.line-block {
+  color: rgb(253, 124, 7);
+}
+body > div.section > div.slide-yellow-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-yellow-white table.docutils th,
+body > div.section > div.slide-yellow-white table.docutils tr,
+body > div.section > div.slide-yellow-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* yellow */
+
+body > div.section > div.slide-yellow {
+  background-color: rgb(253, 124, 7);
+}
+body > div.section > div.slide-yellow {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-yellow a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-yellow a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-yellow a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-yellow h1,
+body > div.section > div.slide-yellow h2,
+body > div.section > div.slide-yellow h2.special,
+body > div.section > div.slide-yellow h3,
+body > div.section > div.slide-yellow h4,
+body > div.section > div.slide-yellow h5,
+body > div.section > div.slide-yellow h6,
+body > div.section > div.slide-yellow em,
+body > div.section > div.slide-yellow strong,
+body > div.section > div.slide-yellow.center-text > p,
+body > div.section > div.slide-yellow.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-yellow code.docutils.literal {
+  color: rgb(253, 124, 7);
+}
+body > div.section > div.slide-yellow hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-yellow .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* pink-white */
+
+body > div.section > div.slide-pink-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-pink-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-pink-white a {
+  color: rgba(251, 34, 109, .80);
+}
+body > div.section > div.slide-pink-white a:visited {
+  color: rgba(251, 34, 109, .80);
+}
+body > div.section > div.slide-pink-white a:hover {
+  color: rgb(251, 34, 109);
+}
+body > div.section > div.slide-pink-white h1,
+body > div.section > div.slide-pink-white h2,
+body > div.section > div.slide-pink-white h2.special,
+body > div.section > div.slide-pink-white h3,
+body > div.section > div.slide-pink-white h4,
+body > div.section > div.slide-pink-white h5,
+body > div.section > div.slide-pink-white h6,
+body > div.section > div.slide-pink-white strong,
+body > div.section > div.slide-pink-white code.docutils.literal,
+body > div.section > div.slide-pink-white.center-text > p,
+body > div.section > div.slide-pink-white.center-text > div.line-block {
+  color: rgb(251, 34, 109);
+}
+body > div.section > div.slide-pink-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-pink-white table.docutils th,
+body > div.section > div.slide-pink-white table.docutils tr,
+body > div.section > div.slide-pink-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* pink */
+
+body > div.section > div.slide-pink {
+  background-color: rgb(251, 34, 109);
+}
+body > div.section > div.slide-pink {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-pink a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-pink a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-pink a:hover {
+  color: rgb(255, 255, 255);
+}
+body > div.section > div.slide-pink h1,
+body > div.section > div.slide-pink h2,
+body > div.section > div.slide-pink h2.special,
+body > div.section > div.slide-pink h3,
+body > div.section > div.slide-pink h4,
+body > div.section > div.slide-pink h5,
+body > div.section > div.slide-pink h6,
+body > div.section > div.slide-pink em,
+body > div.section > div.slide-pink strong,
+body > div.section > div.slide-pink.center-text > p,
+body > div.section > div.slide-pink.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+/*
+body > div.section > div.slide-pink code.docutils.literal {
+  color: rgb(251, 34, 109);
+}
+*/
+body > div.section > div.slide-pink hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-pink .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}
+
+/* red-white */
+
+body > div.section > div.slide-red-white {
+  background-color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-red-white {
+  color: rgb(53, 60, 92);
+}
+body > div.section > div.slide-red-white a {
+  color: rgba(255, 55, 64, .80);
+}
+body > div.section > div.slide-red-white a:visited {
+  color: rgba(255, 55, 64, .80);
+}
+body > div.section > div.slide-red-white a:hover {
+  color: rgb(255, 55, 64);
+}
+body > div.section > div.slide-red-white h1,
+body > div.section > div.slide-red-white h2,
+body > div.section > div.slide-red-white h2.special,
+body > div.section > div.slide-red-white h3,
+body > div.section > div.slide-red-white h4,
+body > div.section > div.slide-red-white h5,
+body > div.section > div.slide-red-white h6,
+body > div.section > div.slide-red-white strong,
+body > div.section > div.slide-red-white code.docutils.literal,
+body > div.section > div.slide-red-white.center-text > p,
+body > div.section > div.slide-red-white.center-text > div.line-block {
+  color: rgb(255, 55, 64);
+}
+body > div.section > div.slide-red-white hr.docutils {
+  background-color: rgb(53, 60, 92, 0.5);
+}
+body > div.section > div.slide-red-white table.docutils th,
+body > div.section > div.slide-red-white table.docutils tr,
+body > div.section > div.slide-red-white table.docutils td {
+  border: 1px solid rgb(53, 60, 92, 0.5);
+}
+
+/* red */
+
+body > div.section > div.slide-red {
+  background-color: rgb(255, 55, 64);
+}
+body > div.section > div.slide-red {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-red a {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-red a:visited {
+  color: rgba(255, 243, 220, .90);
+}
+body > div.section > div.slide-red a:hover {
+  color: rgb(255, 255 ,255);
+}
+body > div.section > div.slide-red h1,
+body > div.section > div.slide-red h2,
+body > div.section > div.slide-red h2.special,
+body > div.section > div.slide-red h3,
+body > div.section > div.slide-red h4,
+body > div.section > div.slide-red h5,
+body > div.section > div.slide-red h6,
+body > div.section > div.slide-red em,
+body > div.section > div.slide-red strong,
+body > div.section > div.slide-red.center-text > p,
+body > div.section > div.slide-red.center-text > div.line-block {
+  color: rgb(255, 243, 220);
+}
+body > div.section > div.slide-red code.docutils.literal {
+  color: rgb(255, 55, 64);
+}
+body > div.section > div.slide-red hr.docutils {
+  background-color: rgba(255, 243, 220, .75);
+}
+body > div.section > div.slide-red .pagenumber {
+  color: rgba(255, 243, 220, .90);
+}

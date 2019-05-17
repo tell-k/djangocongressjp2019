@@ -1,0 +1,969 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Djangoで静的ファイルとうまくやる</title>
+    <meta name="description" content="DjangoCongress JP 2019 の発表資料です。Djangoアプリを本番にデプロイしたら、JS/CSSが表示されなくて困った。collectstatic がイマイチなんのためにあるのか分からない。そんな経験をしたことありませんか？ 本発表ではDjangoでJS/CSSなどの静的なファイル扱うために誰もが一度は迷ったり、つまづいたりするようなトピックを事例を交えながら初心者の人にもわかりやすいように発表いたします。" >
+    <link rel="canonical" href="https://tell-k.github.io/djangocongressjp2019" >
+    <script>
+      var notesEnabled =false;
+      var defaultSlideColor = "slide-green";
+      var sections = [];
+      var titleNotes = [];
+    </script>
+    <meta charset='utf-8'>
+
+    <meta property="og:title" content="Djangoで静的ファイルとうまくやる">
+    <meta property="og:description" content="DjangoCongress JP 2019 の発表資料です。Djangoアプリを本番にデプロイしたら、JS/CSSが表示されなくて困った。collectstatic がイマイチなんのためにあるのか分からない。そんな経験をしたことありませんか？ 本発表ではDjangoでJS/CSSなどの静的なファイル扱うために誰もが一度は迷ったり、つまづいたりするようなトピックを事例を交えながら初心者の人にもわかりやすいように発表いたします。">
+    <meta property="og:image" content="https://tell-k.github.io/djangocongressjp2019/_static/img/ogp.png">
+    <meta property="og:url" content="https://tell-k.github.io/djangocongressjp2019">
+    <meta property="og:site_name" content="github">
+    <meta property="og:type" content="article">
+    <meta property="article:author" content="https://github.com/tell-k">
+
+    <meta name="twitter:title" content="Djangoで静的ファイルとうまくやる">
+    <meta name="twitter:description" content="DjangoCongress JP 2019 の発表資料です。Djangoアプリを本番にデプロイしたら、JS/CSSが表示されなくて困った。collectstatic がイマイチなんのためにあるのか分からない。そんな経験をしたことありませんか？ 本発表ではDjangoでJS/CSSなどの静的なファイル扱うために誰もが一度は迷ったり、つまづいたりするようなトピックを事例を交えながら初心者の人にもわかりやすいように発表いたします。">
+    <meta name="twitter:image" content="https://tell-k.github.io/djangocongressjp2019/_static/img/ogp.png">
+    <meta name="twitter:card" content="summary_large_image"">
+    <meta name="twitter:site" content="@github">
+    <meta name="twitter:creator" content="@tell_k">
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/notes.css" type="text/css" />
+    <link rel="stylesheet" href="_static/css/colors.css" type="text/css" />
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+    <script>
+    </script>
+  </head>
+  <body style='display: none'>
+    
+  <div class="section" id="django">
+<h1>Djangoで静的ファイルとうまくやる<a class="headerlink" href="#django" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">tell-k</div>
+<div class="line">DjangoCongress JP 2019 (2019.05.18)</div>
+</div>
+<div class="section" id="id1">
+<h2>おまえ誰よ？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<img alt="https://pbs.twimg.com/profile_images/1045138776224231425/3GD8eWeG_200x200.jpg" src="https://pbs.twimg.com/profile_images/1045138776224231425/3GD8eWeG_200x200.jpg" />
+<ul class="simple">
+<li><p>tell-k</p></li>
+<li><p>BePROUD.inc</p></li>
+<li><p>情弱プログラマー</p></li>
+<li><p><a class="reference external" href="https://twitter.com/tell_k">https://twitter.com/tell_k</a></p></li>
+<li><p><a class="reference external" href="https://tell-k.github.io/djangocongressjp2019/">https://tell-k.github.io/djangocongressjp2019/</a></p></li>
+</ul>
+</div>
+<div class="section" id="beproud-python">
+<h2>BePROUD - Pythonメインの受託開発<a class="headerlink" href="#beproud-python" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id64">
+<a class="reference internal image-reference" href="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/3ce742cb9bef4e4f925cb7385e494ff4.png"><img alt="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/3ce742cb9bef4e4f925cb7385e494ff4.png" src="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/3ce742cb9bef4e4f925cb7385e494ff4.png" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://www.beproud.jp/">https://www.beproud.jp/</a></span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="connpass-it">
+<h2>connpass - エンジニアをつなぐIT勉強会支援プラットフォーム<a class="headerlink" href="#connpass-it" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id65">
+<a class="reference internal image-reference" href="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/c4f1511638f241daaaac9e29ed3151c1.png"><img alt="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/c4f1511638f241daaaac9e29ed3151c1.png" src="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/c4f1511638f241daaaac9e29ed3151c1.png" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://connpass.com/">https://connpass.com/</a></span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="pyq-python">
+<h2>PyQ - Pythonオンライン学習サービス<a class="headerlink" href="#pyq-python" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center" id="id66">
+<a class="reference internal image-reference" href="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/e9121e88c3b64179993a02198a7514f9.png"><img alt="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/e9121e88c3b64179993a02198a7514f9.png" src="https://dl.dropboxusercontent.com/spa/ghyn87yb4ejn5yy/e9121e88c3b64179993a02198a7514f9.png" style="width: 70%;" /></a>
+<p class="caption"><span class="caption-text"><a class="reference external" href="https://pyq.jp/">https://pyq.jp/</a> ★ Djangoを使ったWeb開発も学習できます! ★</span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="slide-green-white section" id="id2">
+<h2>目的/動機<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>最近Q&amp;Aサイトとかで「 <strong>本番にあげたらCSS/JS/画像が表示されない!</strong> 」というのをよく見かけました</p></li>
+<li><p>私も最初の頃は良く分からなかくて辛かった</p></li>
+<li><p>入門したてのころはPythonコードやDBやらを覚えることがいっぱい</p></li>
+<li><p>何とく表示できたりするので静的ファイル扱いは後回しにされがち</p></li>
+<li><p>結果、後から失敗して痛い目をみる辛い</p></li>
+<li><p>そういう経験も踏まえて、DjangoもといWebアプリ開発における静的ファイルの取り回しについてまとめてみようと思った次第</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id3">
+<h2>対象<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>これから Django を学び始める人</p></li>
+<li><p>Webアプリを作ろうと勉強してる人</p></li>
+<li><p>Django は少し触ったことがあるけど、 <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> が意味わからなかった人</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">settings.DEBUG</span> <span class="pre">=</span> <span class="pre">False</span></code> にして静的ファイルが表示されなくて焦った経験がある <strong>私みたいな人</strong></p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id4">
+<h2>今日の目標<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><strong>「わかるっ！俺には静的ファイルがわかる！！！」</strong></p>
+<img alt="http://4.bp.blogspot.com/-zTvzECyWEsk/VwIjHWMdszI/AAAAAAAA5e4/W_kAnVythXoHGzGO3AkgrHImS3cpvMiuQ/s800/internet_kanki_man1.png" src="http://4.bp.blogspot.com/-zTvzECyWEsk/VwIjHWMdszI/AAAAAAAA5e4/W_kAnVythXoHGzGO3AkgrHImS3cpvMiuQ/s800/internet_kanki_man1.png" />
+</div>
+<div class="slide-green-white section" id="id5">
+<h2>前提<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>サンプルコードは全て Python 3.7,  Django 2.2.1</p></li>
+<li><p>クラウドサービスの話は AWS がメインです</p></li>
+<li><p>HTTPサーバーの話は nginx がメインです</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id6">
+<h2>目次<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>静的ファイルとは</p></li>
+<li><p>わたしの失敗談</p></li>
+<li><p>Djangoの静的ファイルの扱い</p></li>
+<li><p>本番公開のパターン</p>
+<ul>
+<li><p>単一のサーバ</p></li>
+<li><p>複数台のサーバー</p></li>
+<li><p>クラウドのストレージの利用</p></li>
+<li><p>CDNを利用する</p></li>
+</ul>
+</li>
+<li><p>静的ファイル関連Tips</p></li>
+<li><p>参考</p></li>
+</ul>
+</div>
+<div class="slide-cyan center-text section" id="id7">
+<h2>静的ファイルとは<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>静的ファイルとは</p>
+</div>
+<div class="slide-cyan-white section" id="id8">
+<h2>静的ファイルとは<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>そもそも静的ファイルとはなんでしょうか？</p></li>
+<li><p>よく <strong>「静的ファイルとは CSS, JS、画像ファイル とかです」</strong></p></li>
+<li><p>みたいなざっくりな説明されますが Python スクリプトだってファイルじゃないですか？静的とは一体？</p></li>
+<li><p>みたいな疑問をもったりしませんでしたか？</p></li>
+</ul>
+</div>
+<div class="slide-cyan-white section" id="id9">
+<h2>静的ファイルとは<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>MDN には以下のように書いてあります</p></li>
+</ul>
+<p>静的Webサーバ、またはスタックは、コンピューター (ハードウェア) と
+HTTP サーバ (ソフトウェア) から構成されます
+<strong>サーバが保持しているファイルをブラウザーへ「そのまま」送るので、「静的」と呼ばれます</strong></p>
+<p>via <a class="reference external" href="https://developer.mozilla.org/ja/docs/Learn/Common_questions/What_is_a_web_server">Web サーバとは - Web 開発を学ぶ | MDN</a></p>
+</div>
+<div class="slide-cyan-white section" id="web">
+<h2>静的Webサーバ<a class="headerlink" href="#web" title="Permalink to this headline">¶</a></h2>
+<p>リクエストされたサーバー内のファイルをそのままHTTPレスポンスとして返すだけ</p>
+<a class="reference internal image-reference" href="_images/static-server.png"><img alt="_images/static-server.png" src="_images/static-server.png" style="width: 100%;" /></a>
+</div>
+<div class="slide-cyan-white section" id="id10">
+<h2>動的コンテンツ<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>一方動的とは以下のように書いてあります</p></li>
+</ul>
+<p>動的Webサーバは、静的Webサーバに加えて追加のソフトウェア、
+一般的にはアプリケーションサーバおよびデータベースで構成されます
+<strong>アプリケーションサーバが、 HTTP サーバを通してブラウザーに送信する前に、保持しているファイルを更新するので「動的」と呼ばれます</strong></p>
+<hr class="docutils" />
+<p><strong>「動的」はサーバがコンテンツを処理したり、データベースからその場で作成したりすることを意味します</strong>
+この方法はより柔軟性を提供できますが、
+技術スタックがより扱いにくくなり、Webサイトを構築することは劇的に複雑になります</p>
+<p>via <a class="reference external" href="https://developer.mozilla.org/ja/docs/Learn/Common_questions/What_is_a_web_server">Web サーバとは - Web 開発を学ぶ | MDN</a></p>
+</div>
+<div class="slide-cyan-white section" id="id12">
+<h2>動的Webサーバー<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>いわゆる Webアプリーケション</p>
+<a class="reference internal image-reference" href="_images/dynamic-server.png"><img alt="_images/dynamic-server.png" src="_images/dynamic-server.png" style="width: 90%;" /></a>
+</div>
+<div class="slide-cyan-white section" id="id13">
+<h2>Django は?<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Webアプリをつくるためのフレームワークです</p></li>
+<li><p><strong>動的コンテンツを生成し配信する</strong> のが主な役割です</p></li>
+<li><p>アプリケーションサーバーとしてサーバー内に配置されて稼働します</p></li>
+<li><p>本番環境では <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code> や <code class="docutils literal notranslate"><span class="pre">uWSGI</span></code> というライブラリを利用して <code class="docutils literal notranslate"><span class="pre">WSGIアプリケーション</span></code> として運用されるのが一般的です</p></li>
+</ul>
+</div>
+<div class="slide-cyan-white section" id="id14">
+<h2>ここまでのまとめ<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>静的ファイルとはHTTPサーバーがそのまま返すファイル群の事を指す</strong></p></li>
+<li><p>そのまま返すならだいたい全部静的ファイル</p></li>
+<li><p>静的ファイルは静的コンテンツとも呼ばれたり <code class="docutils literal notranslate"><span class="pre">static</span></code> ファイルや <code class="docutils literal notranslate"><span class="pre">assets</span></code> などとも呼ばれる</p></li>
+</ul>
+<p>呼び方の話</p>
+<ul class="simple">
+<li><p>MDNにならってHTTPサーバーと呼んでいますが、一般的にはこのソフトウェアのことをさしてWebサーバーと呼んだりもします</p></li>
+<li><p>この発表では <strong>HTTPサーバー</strong> で統一します</p></li>
+</ul>
+</div>
+<div class="slide-red center-text section" id="dummy">
+<h2>dummy<a class="headerlink" href="#dummy" title="Permalink to this headline">¶</a></h2>
+<p>私が失敗した話</p>
+</div>
+<div class="slide-red-white section" id="id15">
+<h2>私が失敗した話<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Django を触り始めた頃に失敗した話</p></li>
+<li><p>公開前の本番サーバーにDjangoアプリをデプロイ</p></li>
+<li><p>アプリが動いたと思ったら</p></li>
+</ul>
+</div>
+<div class="slide-red-white section" id="css">
+<h2>失敗1. CSSが全く当たってない…<a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>画像もJSもブラウザで読み込めてないよ</p></li>
+<li><p>ローカル環境や、開発サーバーでは表示されてましたよ？</p></li>
+<li><p>開発サーバーとの差異は <strong>本番用に設定ファイルを変えたくらいなのに</strong></p></li>
+</ul>
+</div>
+<div class="slide-red-white section" id="nginx">
+<h2>nginx で静的ファイルを配信すればいいいのか!<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>プロジェクト内のstaticディレクトリを配信元に設定した</strong></p></li>
+<li><p>そして <code class="docutils literal notranslate"><span class="pre">nginx</span></code> 再起動したぞー</p></li>
+<li><p>やったーサイトが見えたー</p></li>
+</ul>
+</div>
+<div class="slide-red-white section" id="django-admin">
+<h2>失敗2. まだ Django Admin が真っ白<a class="headerlink" href="#django-admin" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>分からない俺はなにも分からない</p></li>
+<li><p><strong>そもそも Django AdminのCSS/JSはサーバー内のどこにあるんや??</strong></p></li>
+<li><p>良く分からないけど調べたら <strong>site-packages以下</strong> にあった！</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>例) djangoのadminアプリの中に静的ファイルがある
+
+/site-packages/django/contrib/admin/static/
+└── admin
+    ├── css
+    ├── fonts
+    ├── img
+    └── js
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>これを <strong>自分のプロジェクトにコピーして表示できた！ヨシ！</strong></p></li>
+</ul>
+</div>
+<div class="slide-red-white section" id="id16">
+<h2>全然「ヨシ！」 ではない<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<img alt="https://4.bp.blogspot.com/-EBpxVigkCCY/V5Xc1CHSeEI/AAAAAAAA8u0/9XIAzDJaQNU3HIiXi4PCPK3aMip3aoGyACLcB/s400/pose_sugoi_okoru_man.png" src="https://4.bp.blogspot.com/-EBpxVigkCCY/V5Xc1CHSeEI/AAAAAAAA8u0/9XIAzDJaQNU3HIiXi4PCPK3aMip3aoGyACLcB/s400/pose_sugoi_okoru_man.png" />
+</div>
+<div class="slide-green center-text section" id="id17">
+<h2>Djangoの静的ファイルの扱い<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>Djangoの静的ファイルの扱い</p>
+</div>
+<div class="slide-green-white section" id="id18">
+<h2>Djangoの静的ファイルの扱い<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>茶番</strong> はこれくらいにして Django の話に戻りましょう</p></li>
+<li><p>ここからは、Djangoでの静的ファイルを基本的な扱い方について見ていきましょう</p></li>
+<li><p>ついでにメディアファイルの話もします</p></li>
+<li><p>その過程でさっきの何が悪かったのかもを解説します</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id19">
+<h2>開発モードで静的ファイルを配信<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>開発する時は、 <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code>  でDjangoアプリを起動</p></li>
+<li><p>デフォルトで何もしなければ <strong>静的ファイル</strong> を配信してくれます</p></li>
+<li><p><strong>settings.DEBUG = True</strong> の時だけ有効になります</p></li>
+</ul>
+<p>なぜ？</p>
+<ul class="simple">
+<li><p><strong>開発時に静的ファイルが表示されないのは不便だから</strong></p></li>
+<li><p>だから開発モードの時だけは静的ファイルを配信する</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">django.contrib.staticfiles</span></code> が機能を提供している</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id20">
+<h2>あくまで開発時の補助用<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>あくまで開発の補助用なので <strong>本番で利用することを想定していない</strong></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>上で述べたたように django.contrib.staticfiles を利用する場合、
+DEBUG が True であれば runserver は自動的にこの処理を行います
+
+〜略〜
+
+この機能は本番環境で利用するのに適していません!
+一般的なデプロイ方法に関しては 静的ファイルのデプロイ を参照ください
+</pre></div>
+</div>
+<p>via <a class="reference external" href="https://docs.djangoproject.com/ja//2.2/howto/static-files/#serving-static-files-during-development">静的ファイル (画像、JavaScript、CSS など) を管理する &gt; 開発時の静的ファイルの取扱い</a></p>
+</div>
+<div class="slide-green-white section" id="id21">
+<h2>失敗1の原因<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>先ほどの <strong>失敗1. CSSが全く当たってない…</strong> の理由がこれです</p></li>
+<li><p>本番で <code class="docutils literal notranslate"><span class="pre">settings.DEBUG</span> <span class="pre">=</span> <span class="pre">False</span></code> に設定したまではよかったが…</p></li>
+<li><p>この結果、 <strong>開発(DEBUG)モードがオフになった</strong>  ので <strong>静的ファイル配信機能も自動的にオフになった</strong></p></li>
+<li><p>結果CSSが当たってなかった…</p></li>
+</ul>
+<p>言われてみれば当たり前だけど、当時は良くわかってなかった</p>
+</div>
+<div class="slide-red center-text section" id="debug-true">
+<h2>DEBUG = True のまま本番公開してはダメ<a class="headerlink" href="#debug-true" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">DEBUG = True のまま</div>
+<div class="line">本番公開してはダメ</div>
+</div>
+</div>
+<div class="slide-red-white section" id="id22">
+<h2>何がまずいの？<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Django自体が静的ファイル配信に最適化されてない</p>
+<ul>
+<li><p>なので <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">version</span> <span class="pre">runserver</span> <span class="pre">--insecure</span></code> で公開もダメ</p></li>
+</ul>
+</li>
+<li><p>デバッグ情報が画面上に出力される</p></li>
+<li><p>例えばファイルパス、設定内容などが表示される</p></li>
+<li><p>結果サイトの攻撃者に優位な情報を渡すことになります</p></li>
+</ul>
+<p>それ以外にも</p>
+<ul class="simple">
+<li><p>SQLクエリも常に保存するのでメモリの消費も激しい</p></li>
+<li><p>パフォーマンスの観点でもよくない</p></li>
+</ul>
+<p>via. <a class="reference external" href="https://docs.djangoproject.com/ja/2.2/ref/settings/#debug">https://docs.djangoproject.com/ja/2.2/ref/settings/#debug</a></p>
+</div>
+<div class="slide-red center-text section" id="center2">
+<h2>center2<a class="headerlink" href="#center2" title="Permalink to this headline">¶</a></h2>
+<p>Q．Django が静的ファイルを配信しないなら、<strong>何が配信するの？</strong></p>
+</div>
+<div class="slide-blue center-text section" id="center3">
+<h2>center3<a class="headerlink" href="#center3" title="Permalink to this headline">¶</a></h2>
+<p>A．静的ファイルを配信するHTTPサーバーを用意します</p>
+</div>
+<div class="slide-blue-white section" id="debug-false">
+<h2>DEBUG = Falseの時の静的ファイル配信方法<a class="headerlink" href="#debug-false" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>例えば Djangoプロジェクト が 以下のような構成だったら</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings.py  ---</span>
+
+<span class="c1"># 静的ファイルの探索はデフォルトでは アプリの staticディレクトリ以下</span>
+<span class="c1"># ファイルを探したりするのが面倒なので、プロジェクトの直下に</span>
+<span class="c1"># staticディレクトリをおきます</span>
+
+<span class="n">STATICFILES_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="id23">
+<h2>DEBUG = Falseの時の静的ファイル配信方法<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>今回は プロジェクト直下の <code class="docutils literal notranslate"><span class="pre">static</span></code> に全ての静的ファイルがあるという前提</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>myproject
+├── .gitignore
+├── apps
+│   ├── core
+│   ├── manage.py
+│   ├── polls
+│   ├── static  <span class="c1"># &lt;- デフォはここから探すが、今回はここに置かない</span>
+│   └── apps
+├── static       <span class="c1"># &lt;- 全部ここに置く</span>
+│   ├── css
+│   ├── images
+│   └── js
+└── templates
+    ├── base.html
+    └── polls
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="http-static">
+<h2>HTTPサーバー で static 以下 を静的に配信<a class="headerlink" href="#http-static" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>HTTPサーバーとして Nginxを例にします</p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+
+    <span class="kn">server_name</span> <span class="s">example.com</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="p">=</span> <span class="s">/favicon.ico</span> <span class="p">{</span> <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span> <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span> <span class="p">}</span>
+    <span class="c1"># http://example.com/static 以下は全てファイルを静的にそのまま返す</span>
+    <span class="kn">location</span> <span class="s">/static/</span> <span class="p">{</span>
+        <span class="kn">root</span> <span class="s">/path/to/myproject</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1"># それ以外はDjangoアプリにプロキシする</span>
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">include</span> <span class="s">proxy_params</span><span class="p">;</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://unix:/run/uwsgi/myproject.sock</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="http">
+<h2>HTTPサーバーが静的/動的を振り分ける<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h2>
+<p>URLパスによって、静的ファイルを配信するか、Djangoが受けるかを振り分けます</p>
+<a class="reference internal image-reference" href="_images/http-server-1.png"><img alt="_images/http-server-1.png" src="_images/http-server-1.png" style="width: 80%;" /></a>
+</div>
+<div class="slide-blue section" id="id24">
+<h2>静的ファイルを一つの場所に集める<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-blue-white section" id="id25">
+<h2>静的ファイルを一つの場所に集める<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>この状態はまだ <strong>失敗2. まだ Django Admin が真っ白</strong> の状態です</p></li>
+<li><p>Django系のアプリは、Pythonパッケージの中に <strong>静的ファイルを一緒に持っています</strong></p></li>
+<li><p>それらも静的ファイルとして配信する必要があります</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">django.cotnrib.admin</span></code> だけでなく、そういうライブラリが他にもあります</p></li>
+</ul>
+</div>
+<div class="slide-blue-white section" id="id26">
+<h2>静的ファイルを一つの場所に集める<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>とはいえHTTPサーバーに一個一個設定するのは、現実的ではない</p></li>
+<li><p>コピペして持ってくるのも微妙</p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+
+    <span class="kn">server_name</span> <span class="s">example.com</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="p">=</span> <span class="s">/favicon.ico</span> <span class="p">{</span> <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span> <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="c1"># /static/admin だけは site-package以下から配信する &lt;- 流石に辛い</span>
+    <span class="kn">location</span> <span class="s">/static/admin/</span> <span class="p">{</span>
+        <span class="kn">root</span> <span class="s">/path/to/venv/lib/python3.7/site-packages/django/contrib/admin/</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="s">/static/</span> <span class="p">{</span>
+        <span class="kn">root</span> <span class="s">/path/to/myproject</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1"># 〜 省略 〜</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="collectstatic">
+<h2>collectstatic で集める<a class="headerlink" href="#collectstatic" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>なので必要な静的ファイルを一つのディレクトリに集約するコマンドがある</p></li>
+<li><p>それが <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> コマンドです集める場所の設定が <code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code> です</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings.py ---</span>
+
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;collected_static&#39;</span><span class="p">)</span>
+
+<span class="c1"># 追加の静的ファイル探索パス</span>
+<span class="n">STATICFILES_DIRS</span> <span class="o">=</span>  <span class="p">(</span>
+   <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;static&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python manage.py collectstatic
+</pre></div>
+</div>
+<p><a class="reference external" href="https://docs.djangoproject.com/ja/2.2/ref/contrib/staticfiles/#collectstatic">https://docs.djangoproject.com/ja/2.2/ref/contrib/staticfiles/#collectstatic</a></p>
+</div>
+<div class="slide-blue-white section" id="id27">
+<h2>collectstatic で集める<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>site-packages/django/contrib/admin/static/admin  <span class="c1"># ... ①</span>
+
+<span class="c1"># ~ 省略 ~</span>
+
+├── apps
+├── collected_static  <span class="c1"># &lt;- 全ての静的ファイルが集約される</span>
+│   ├── admin         <span class="c1"># ... ①</span>
+│   ├── css           <span class="c1"># ... ②</span>
+│   ├── images
+│   └── js
+├── static            <span class="c1"># ... ② 設定で探索対象になっている</span>
+│   ├── css
+│   ├── images
+│   └── js
+└── templates
+</pre></div>
+</div>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="c1"># nginxの設定を変える</span>
+
+<span class="c1"># ディレクトリ名が変わったので root -&gt; alias に変更</span>
+<span class="k">location</span> <span class="s">/static/</span> <span class="p">{</span>
+   <span class="kn">alias</span> <span class="s">/path/to/myproject/collcected_static</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="id28">
+<h2>結局、公開するときはどうしたらいい？<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>公開する時は <code class="docutils literal notranslate"><span class="pre">DEBUG</span> <span class="pre">=</span> <span class="pre">False</span></code> にしつつ <code class="docutils literal notranslate"><span class="pre">collectstatc</span></code> で静的ファイル集めましょう</p></li>
+<li><p>集約ディレクトリを静的に配信するようにHTTPサーバーを設定しよう</p></li>
+<li><p>あとはデプロイツールの中で <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> を毎回実行させると良いです</p></li>
+<li><p>デプロイの時に <code class="docutils literal notranslate"><span class="pre">Yes/No</span></code> を毎回聞かれるのが面倒な場合は <code class="docutils literal notranslate"><span class="pre">--no-input</span></code> をつけると良いです</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 毎回集めるかどうかを聞かれずに、実行されます</span>
+$ python manage.py collectstatic --no-input
+</pre></div>
+</div>
+</div>
+<div class="slide-blue-white section" id="id29">
+<h2>メディアファイル<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-blue-white section" id="id30">
+<h2>メディアファイル<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Django では <code class="docutils literal notranslate"><span class="pre">STAIC_</span></code> から始まる設定と、 <code class="docutils literal notranslate"><span class="pre">MEDIA_</span></code> から始まる設定の2種類あります</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STATIC_</span></code> は 静的ファイルの配信関連のものです</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MEDIA_</span></code> は Djangoアプリが管理するファイルための設定です</p></li>
+<li><p>Djangoアプリが管理するファイル群を <strong>メディアファイル</strong> とDjangoは呼んでいます</p></li>
+<li><p>例えば、アップロードファイルや、アップロード画像です</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings.py ---</span>
+<span class="c1"># 例) メディアファイル関連の設定例</span>
+
+<span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="s1">&#39;/media/&#39;</span>  <span class="c1"># メディアファイル配信URL</span>
+<span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;media&#39;</span><span class="p">)</span> <span class="c1"># メディアファイルの保存先</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-green-white section" id="id31">
+<h2>開発モードでメディアファイルを配信するには？<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>メディアファイルの場合は、自分で設定する必要があります</p></li>
+<li><p>静的ファイルは <code class="docutils literal notranslate"><span class="pre">DEBUG</span> <span class="pre">=</span> <span class="pre">True</span></code> で自動で設定されます</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls.static</span> <span class="kn">import</span> <span class="n">static</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># 省略</span>
+<span class="p">]</span>
+
+<span class="c1"># 開発モードの時だけ、Djangoでメディアファイルを静的配信</span>
+<span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+    <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-green-white section" id="id32">
+<h2>メディアファイルのアップロード時の注意点<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>HTTPサーバーのデフォルト設定だとリクエストボディ(ファイルサイズ)の上限が小さい</p></li>
+<li><p>例えば Nginx は デフォルトで <strong>1MB</strong> が上限です</p></li>
+<li><p>なので上限に引っかかってエラーになったります</p></li>
+<li><p>大きなファイルをアップロードする時は、Webサーバーの設定を変えておくと良いです</p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="c1"># 例) nginx で 10MBまで上限をあげる</span>
+<span class="k">client_max_body_size</span> <span class="s">10M</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size">http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size</a></p>
+</div>
+<div class="slide-green center-text section" id="id33">
+<h2>本番環境で公開する<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
+<p>本番環境で公開する</p>
+</div>
+<div class="slide-green-white section" id="id34">
+<h2>本番環境で公開する<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>本番環境と一口にいっても色々な環境があります</p>
+<ul>
+<li><p>VPSなのか？</p></li>
+<li><p>AWS使えるのか？</p></li>
+<li><p>S3は使うのか？</p></li>
+<li><p>Herokuなのか？</p></li>
+<li><p>サーバは何台なのか？</p></li>
+</ul>
+</li>
+<li><p>採用するクラウドサービス や アーキテクチャによって静的ファイルの取り扱いも大きく異なります</p></li>
+<li><p>どういうパターンがあるのかみてみましょう</p></li>
+</ul>
+</div>
+<div class="slide-green section" id="id35">
+<h2>単一のサーバーが配信する<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-green-white section" id="id36">
+<h2>単一のサーバーが配信する<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>サーバー1台だけ用意して配信するパターン</p></li>
+<li><p>自分でサーバの設定をしてDjangoアプリを動かす</p></li>
+<li><p>例えば以下のチュートリアルはこのパターンを想定してます</p></li>
+<li><p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04">How To Set Up Django with Postgres, Nginx, and Gunicorn on Ubuntu 16.04 | DigitalOcean</a></p></li>
+<li><p><a class="reference external" href="https://uwsgi-docs.readthedocs.io/en/latest/tutorials/Django_and_nginx.html">Setting up Django and your web server with uWSGI and nginx | uWSGI 2.0 documentation</a></p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id37">
+<h2>Nginxの設定例<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Nginxの例</p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+
+    <span class="kn">server_name</span> <span class="s">example.com</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">/media/</span> <span class="p">{</span> <span class="c1"># &lt;- メディアファイル</span>
+       <span class="kn">root</span> <span class="s">/path/to/myproject</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kn">location</span> <span class="s">/static/</span> <span class="p">{</span> <span class="c1"># &lt;- 静的ファイル</span>
+       <span class="kn">alias</span> <span class="s">/path/to/myproject/collcected_static</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span> <span class="c1"># &lt;- それ以外はDjangoアプリ</span>
+        <span class="kn">include</span> <span class="s">proxy_params</span><span class="p">;</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://unix:/run/uwsgi/myproject.sock</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="c1"># 〜 省略 〜</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-green-white section" id="id38">
+<h2>単一のサーバーが配信する<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/http-server-2.png"><img alt="_images/http-server-2.png" src="_images/http-server-2.png" style="width: 100%;" /></a>
+</div>
+<div class="slide-green section" id="id39">
+<h2>複数サーバー構成<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-green-white section" id="id40">
+<h2>複数サーバー構成<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>サイトの負荷が増大したら、DBサーバを別にしたり、サーバーを増やします</p></li>
+<li><p>サーバーの増えると前段に、ロードバランサー(負荷分散装置)が置かれてたりします</p></li>
+<li><p>サーバーを増やした場合は以下のようなことを考える必要があります</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">collecstatic</span></code> はどこで実行するのか？</p></li>
+<li><p><strong>片方のサーバーだけにアップロード</strong> されたメディアファイルをどうするか？</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id41">
+<h2>デプロイする時は<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
+<p>静的ファイル</p>
+<ul class="simple">
+<li><p>そろぞれのサーバーで <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> コマンドを叩く</p></li>
+<li><p>もしくは <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> で事前に集めたものを各サーバーに同期する</p></li>
+</ul>
+<p>メディアファイル</p>
+<ul class="simple">
+<li><p>どのサーバーにアップロードされるかわからない</p></li>
+<li><p>アップロードされたら、各サーバーに同期する</p></li>
+</ul>
+<p>どうやって同期するの？</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lsyncd</span></code> とか <code class="docutils literal notranslate"><span class="pre">rsync</span></code> などのツールを使って同期</p></li>
+<li><p>特定のディレクトリの変更を監視して、ファイルが更新された同期処理を行う</p></li>
+<li><p>サーバーが増えすぎて同期が追いつかなくなったら、静的ファイル専用のサーバーを用意する</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id42">
+<h2>複数サーバー構成<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/multi-server.png"><img alt="_images/multi-server.png" src="_images/multi-server.png" style="width: 90%;" /></a>
+</div>
+<div class="slide-green section" id="id43">
+<h2>クラウドストレージを利用する<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-green-white section" id="id44">
+<h2>クラウドストレージを利用する<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>各社クラウドサービスには、静的ファイルを扱えるストレージサービスを持ってます</p>
+<ul>
+<li><p>Amazon S3</p></li>
+<li><p>Google Cloud Storage</p></li>
+<li><p>Mirosoft Azure Storage</p></li>
+</ul>
+</li>
+<li><p>これらのサービスを使うことで、先ほどの同期作業から解放されます</p></li>
+<li><p>現代的には割とこちらの方が馴染みがありそうです</p></li>
+<li><p>ここでは AWS で S3 を使う例をみてみましょう</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id45">
+<h2>クラウドストレージを利用する<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/cloud-multi-server.png"><img alt="_images/cloud-multi-server.png" src="_images/cloud-multi-server.png" style="width: 100%;" /></a>
+</div>
+<div class="slide-green-white section" id="id46">
+<h2>Django で どうやるの？<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://django-storages.readthedocs.io/en/latest/">django-storages</a>  というライブラリを使うとできます</p></li>
+<li><p>S3 以外にも Azure Storage や Google Cloud Storage 等にも対応しています</p></li>
+<li><p>ほぼデフォクトスタンダードなライブラリな気がします</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id47">
+<h2>django-storages の使い方例<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Djangoの設定は以下の通りです</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># settings.py --</span>
+
+<span class="n">AWS_ACCESS_KEY_ID</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="n">AWS_SECRET_ACCESS_KEY</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="n">AWS_STORAGE_BUCKET_NAME</span> <span class="o">=</span> <span class="s1">&#39;xxxxxxx&#39;</span>
+
+<span class="c1"># メディアファイルをS3に保存</span>
+<span class="n">DEFAULT_FILE_STORAGE</span> <span class="o">=</span> <span class="s1">&#39;storages.backends.s3boto3.S3Boto3Storage&#39;</span>
+
+<span class="c1"># collectstatic を実行すると静的ファイルをS3に保存</span>
+<span class="n">STATICFILES_STORAGE</span> <span class="o">=</span> <span class="s1">&#39;storages.backends.s3boto3.S3Boto3Storage&#39;</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings">https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings</a></p>
+</div>
+<div class="slide-green-white section" id="id48">
+<h2>django-storages の使い方例<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>nginx 設定は S3 のバケットのURLに対してプロキシ設定します</p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">location</span> <span class="p">~</span> <span class="sr">^/(static/|media/)</span> <span class="p">{</span>
+  <span class="kn">resolver</span>         <span class="mi">10</span><span class="s">.0.0.2</span><span class="p">;</span>
+  <span class="kn">resolver_timeout</span> <span class="s">5s</span><span class="p">;</span>
+  <span class="kn">set</span> <span class="nv">$s3_bucket</span> <span class="s">&quot;xxxxxxx.s3.amazonaws.com&quot;</span><span class="p">;</span>
+
+  <span class="kn">proxy_pass</span> <span class="s">http://</span><span class="nv">$s3_bucket</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-green-white section" id="nginx-s3">
+<h2>Nginx -&gt; S3 にプロキシする時の注意点<a class="headerlink" href="#nginx-s3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Nginx は 起動時に名前解決をして IPアドレスをキャッシュ</p></li>
+<li><p>しかし、S3のURLは一定時間でIPアドレスが動的に変更されてしまいます</p></li>
+<li><p>定期的に <code class="docutils literal notranslate"><span class="pre">resolver</span></code> で名前解決を実行してIPアドレスを更新する必要があります</p></li>
+<li><p><a class="reference external" href="https://yulii.github.io/nginx-dns-cache-20150815.html">Nginx のDNS 名前解決とS3 やELB へのリバースプロキシ</a></p></li>
+</ul>
+<div class="highlight-nginx notranslate"><div class="highlight"><pre><span></span><span class="k">resolver</span>         <span class="mi">10</span><span class="s">.0.0.2</span><span class="p">;</span>
+<span class="k">resolver_timeout</span> <span class="s">5s</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="slide-green-white section" id="id49">
+<h2>Nginxでプロキシする必要があるの？<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>S3はURLを吐き出すのでそれをそのまま利用しても良いです</p>
+<ul>
+<li><p>例) <code class="docutils literal notranslate"><span class="pre">https://xxxxx.s3.amazonaws.com/media/hoge4.png</span></code></p></li>
+</ul>
+</li>
+<li><p>Nginxを介さない分、その分サーバーの負荷は減りそうです</p></li>
+<li><p>ただ、いざURLが変わるとなった時に取り回しがしにくいので、私はNginxでプロキシしてます</p>
+<ul>
+<li><p>例) S3のURLがテキストデータでどこかに保存されてるとか</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id50">
+<h2>HTTPサーバーがない構成<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-green-white section" id="id51">
+<h2>HTTPサーバーがない構成<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jp.heroku.com/">Heroku</a> ような PasS の場合</p></li>
+<li><p>そもそも HTTPサーバー が <strong>置けないです</strong></p></li>
+<li><p>なので、Django で静的ファイルを配信する必要があります</p></li>
+<li><p>Herokuの場合、ファイル書き込みができないのでアップロードもできない</p></li>
+</ul>
+<p>以下のチュートリアルは Heroku を想定したものです</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://devcenter.heroku.com/categories/working-with-django">Working with Django  | Heroku Dev Center</a></p></li>
+<li><p><a class="reference external" href="https://tutorial-extensions.djangogirls.org/ja/heroku/">Deploy your website on Heroku |  Django Girls Tutorial: Extensions</a></p></li>
+<li><p><a class="reference external" href="https://developer.mozilla.org/ja/docs/Learn/Server-side/Django/Deployment">Django Tutorial Part 11: Deploying Django to production - Web 開発を学ぶ | MDN</a></p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id52">
+<h2>どうすればいいか？<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h2>
+<p>静的ファイル</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://whitenoise.evans.io/en/stable/">WhiteNoise</a>  というライラリを使って配信します</p></li>
+<li><p>開発用の静的ファイル配信とは違い、パフォーマンスを意識した静的ファイルが可能になります</p></li>
+<li><p>Django専用ではなく、WSGIアプリケーション全般に利用可能</p></li>
+</ul>
+<p>メディアファイル</p>
+<ul class="simple">
+<li><p>S3 にアップロードするのが良いそうです</p></li>
+<li><p><a class="reference external" href="https://devcenter.heroku.com/articles/s3-upload-python">Direct to S3 File Uploads in Python</a></p></li>
+<li><p><a class="reference external" href="http://aws.clouddesignpattern.org/index.php/CDP:Direct_Object_Upload%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">CDP:Direct Object Uploadパターン</a></p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id53">
+<h2>HTTPサーバーがない構成<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/heroku-arch.png"><img alt="_images/heroku-arch.png" src="_images/heroku-arch.png" style="width: 100%;" /></a>
+</div>
+</div>
+<div class="slide-green-white section" id="id54">
+<h2>WhiteNoise は大丈夫なの？<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://whitenoise.evans.io/en/stable/">http://whitenoise.evans.io/en/stable/</a></p></li>
+<li><p>Djangoの開発用の静的ファイル配信とは違って</p></li>
+<li><p>Herokkuのような環境で動かすこと念頭に開発されている</p></li>
+<li><p>静的ファイルの圧縮/キャッシングにも対応している</p></li>
+<li><p>Django単体で頑張るのでなく、CDNとの連携をしやすいようにしている</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="gae">
+<h2>ちなみにGAEは？<a class="headerlink" href="#gae" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>同じ PaaS でも 静的ファイルを配信できる設定ができる</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">runtime</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python37</span>
+
+<span class="nt">handlers</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/static</span>
+  <span class="nt">static_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">static/</span>  <span class="c1"># &lt;- 静的配信してくれる</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/.*</span>
+  <span class="nt">script</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">auto</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://cloud.google.com/python/django/appengine?hl=ja">https://cloud.google.com/python/django/appengine?hl=ja</a></p>
+</div>
+<div class="slide-green-white section" id="cdn">
+<h2>CDNを利用する<a class="headerlink" href="#cdn" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="slide-green-white section" id="id55">
+<h2>CDNを利用する<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Contents Delivery Networkの略</p></li>
+<li><p>静的ファイルのロード時間はユーザー体験の良し悪しに直結します</p></li>
+<li><p>なるべく速くユーザーに静的ファイルを届けるための仕組みです</p></li>
+</ul>
+<p>簡単に説明すると</p>
+<ul class="simple">
+<li><p>世界中に配信サーバーを持ち、ユーザーに一番近い場所からコンテンツを配信可能</p></li>
+<li><p>コンテンツをキャッシュするので、オリジン(配信元)の負荷が減る</p></li>
+<li><p><a class="reference external" href="http://aws.clouddesignpattern.org/index.php/CDP:Cache_Distribution%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3">CDP:Cache Distributionパターン</a></p></li>
+</ul>
+<p>代表的なサービスは</p>
+<ul class="simple">
+<li><p>Amazon CloudFront</p></li>
+<li><p>Akamai</p></li>
+<li><p>Fastly</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="cdn-cloudfront">
+<h2>CDNを利用する(CloudFront)<a class="headerlink" href="#cdn-cloudfront" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/cloundfront-pattern.png"><img alt="_images/cloundfront-pattern.png" src="_images/cloundfront-pattern.png" style="width: 85%;" /></a>
+</div>
+</div>
+<div class="slide-green-white section" id="cdn-heroku">
+<h2>CDN は Heroku で 使うのも良いです。<a class="headerlink" href="#cdn-heroku" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://devcenter.heroku.com/articles/using-amazon-cloudfront-cdn">Using Amazon CloudFront CDN | Heroku Dev Center</a></p></li>
+<li><p>キャッッシュが利用されることでDjangoへの負担が減る</p></li>
+</ul>
+</div>
+<div class="slide-purple center-text section" id="tips">
+<h2>その他Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h2>
+<p>その他Tips</p>
+</div>
+<div class="slide-purple-white section" id="django-compressor">
+<h2>Django Compressor<a class="headerlink" href="#django-compressor" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>CSS や JS を結合・圧縮してくれるライブラリ</p></li>
+<li><p>ファイルサイズを小さくして、リクエスト数が減らせる</p></li>
+<li><p><a class="reference external" href="https://django-compressor.readthedocs.io/en/stable/usage/">https://django-compressor.readthedocs.io/en/stable/usage/</a></p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{% load compress %}
+
+{% compress css %}
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/one.css&quot; type=&quot;text/css&quot; charset=&quot;utf-8&quot;&gt;
+&lt;style type=&quot;text/css&quot;&gt;p { border:5px solid green;}&lt;/style&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/two.css&quot; type=&quot;text/css&quot; charset=&quot;utf-8&quot;&gt;
+{% endcompress %}
+</pre></div>
+</div>
+<p>↓ 一つのCSSファイルに圧縮される</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/CACHE/css/f7c661b7a124.css&quot; type=&quot;text/css&quot; charset=&quot;utf-8&quot;&gt;
+</pre></div>
+</div>
+</div>
+<div class="slide-purple-white section" id="id56">
+<h2>認証付きの静的ファイル<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>アップロードしたファイルとかは、その認証済みのユーザーしか見えないようにする</p></li>
+<li><p>Djangoで受けて静的配信しなくて良い方法がある</p></li>
+<li><p>アプリで閲覧権限をチェックしつつ、配信はHTTPサーバーでできるようにする設定</p>
+<ul>
+<li><p>Nginx なら X-Accel-Redirect</p></li>
+<li><p>Appache なら X-SendFile</p></li>
+</ul>
+</li>
+<li><p><cite>X-SendFile、X-Accel-Redirectの使い方 &lt;https://jyn.jp/x-sendfile-accel-redirect/&gt;_</cite></p></li>
+</ul>
+</div>
+<div class="slide-purple-white section" id="id57">
+<h2>認証付きの静的ファイル<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/x-accell-redirect.png"><img alt="_images/x-accell-redirect.png" src="_images/x-accell-redirect.png" style="width: 80%;" /></a>
+</div>
+<div class="slide-green-white section" id="id58">
+<h2>参考<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>現場で使える Django の教科書《基礎編》</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li><p>10.4 静的ファイル関連の設定</p></li>
+<li><p>10.5 メディアファイル関連の設定</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>現場で使える Django の教科書《実践編》</p>
+<ul>
+<li><p>第5章開発のヒント(ファイルアップロード)</p></li>
+</ul>
+</li>
+<li><p>Webを支える技術</p></li>
+<li><p>Real World HTTP</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id59">
+<h2>参考<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ハイパフォーマンスWebサイト</p></li>
+<li><p>ハイパフォーマンスブラウザネットワーキング</p></li>
+<li><p>Nginx実践入門</p></li>
+<li><p>超速! Webページ速度改善ガイド</p></li>
+</ul>
+<p>Djangoのドキュメントも充実しています</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.djangoproject.com/ja/2.2/howto/static-files/deployment/">静的ファイルのデプロイ</a></p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id61">
+<h2>参考<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Webページ や 書籍 の著者の皆さん 本当に ありがとうございます。m(_ _)m</p></li>
+</ul>
+</div>
+<div class="slide-green-white section" id="id62">
+<h2>まとめ<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h2>
+<p>下記のような話をいたしました。</p>
+<ul class="simple">
+<li><p>静的ファイルとは</p></li>
+<li><p>わたしの失敗談</p></li>
+<li><p>Djangoの静的ファイルの扱い</p></li>
+<li><p>本番公開のパターン</p></li>
+<li><p>静的ファイル関連Tips</p></li>
+</ul>
+<p>静的ファイル配信というものについて何か参考になれば幸いです。</p>
+</div>
+<div class="slide-green-white center-text section" id="id63">
+<h2>ご静聴ありがとうございました<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h2>
+<p>ご静聴ありがとうございました</p>
+</div>
+</div>
+
+
+  </body>
+  <div id="help">
+      Use the left and right arrow keys or click the left and right
+      edges of the page to navigate between slides.<br>
+      (Press 'H' or navigate to hide this message.)
+  </div>
+  <script type="text/javascript" src="_static/js/init.js"></script>
+  <script type="text/javascript" src="_static/js/notes.js"></script>
+  <script type="text/javascript" src="_static/js/slides.js"></script>
+</html>
