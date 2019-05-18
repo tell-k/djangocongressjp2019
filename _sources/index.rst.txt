@@ -1023,7 +1023,7 @@ Django Compressor
   * Nginx なら X-Accel-Redirect
   * Appache なら X-SendFile
 
-* `X-SendFile、X-Accel-Redirectの使い方 <https://jyn.jp/x-sendfile-accel-redirect/>_`
+* `X-SendFile、X-Accel-Redirectの使い方 <https://jyn.jp/x-sendfile-accel-redirect/>`_
 
 .. rst-class:: slide-purple-white
 
@@ -1084,7 +1084,7 @@ Djangoのドキュメントも充実しています
 * 本番公開のパターン
 * 静的ファイル関連Tips
 
-静的ファイル配信というものについて何か参考になれば幸いです。
+静的ファイル配信というものについて何か参考になれば幸いです
 
 
 .. rst-class:: slide-green-white
