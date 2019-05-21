@@ -64,4 +64,8 @@ var initDoms = function(){
      }
   });
 
+  $(window).on('touchmove.noScroll', function(e) {
+      e.preventDefault();
+  });
+
 };
